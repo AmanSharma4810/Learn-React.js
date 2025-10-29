@@ -5,6 +5,7 @@ import { db } from "../../firebase"
 export default function FeedbackForm(){
     const[form,setForm]=useState({
         name:"",
+        age:"",
         email:"",
         feedback:""
     })
@@ -15,8 +16,9 @@ export default function FeedbackForm(){
         e.preventDefault();
 
         try{
-           await addDoc(collection(db,"feedbacks",form));
+           await addDoc(collection(db,"feedbacks"),form);
            alert("Feedback sumbited succedsully");
+           setForm({name:"",email:"",feedback:"",age:""})
         }catch(error){
             console.error("Error on submit .. ",error)
 
@@ -43,6 +45,19 @@ export default function FeedbackForm(){
               required
             />
           </div>
+          <div className="mb-3">
+            <label className="form-label">Age</label>
+            <input
+              type="number"
+              className="form-control"
+              name="age"
+              placeholder="Enter your age"
+              value={form.age}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          
 
           <div className="mb-3">
             <label className="form-label">Email Address</label>
